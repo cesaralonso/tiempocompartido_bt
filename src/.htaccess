@@ -1,0 +1,177 @@
+
+<Files *.js>
+SetOutputFilter DEFLATE
+</Files>
+<Files *.css>
+SetOutputFilter DEFLATE
+</Files>
+
+# 480 weeks
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+Header set Cache-Control "max-age=290304000, public"
+</FilesMatch>
+ 
+# 2 DAYS
+<FilesMatch "\.(xml|txt)$">
+Header set Cache-Control "max-age=172800, public, must-revalidate"
+</FilesMatch>
+ 
+# 2 HOURS
+<FilesMatch "\.(html|htm)$">
+Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+
+ErrorDocument 404 http://www.tiempocompartido.com/index.php?error=404
+#ErrorDocument 404 http://localhost/tiempocompartidobt/index.php?error=404
+
+#AddCharset ISO-8859-1 .php
+
+#AddDefaultCharset ISO-8859-1
+AddDefaultCharset UTF-8
+
+
+RewriteEngine On
+#RewriteBase /
+RewriteBase /tiempocompartidobt/src/
+RewriteRule ^(.*)index.php$ $1 [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)/$ $1.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ $1/ [R=301,L]
+
+
+
+
+
+
+
+RewriteRule ^catalogo/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?it_pais=$1&it_cd=$2&it_club=$3&id=$4&it_nombre=$5
+
+RewriteRule ^listadosgenerales/$ index.php?listado=$1&para=renta-venta-intercambio
+RewriteRule ^listadosgenerales/([^/]+)$ index.php?listado=$1
+
+
+###################
+
+
+RewriteRule ^clubes/$ index.php?cat=club&listado=cat
+RewriteRule ^clubs/$ index.php?cat=club&listado=cat
+
+RewriteRule ^clubes/([^/]+)/$ index.php?ciudad=$1&cat=club&listado=cat
+RewriteRule ^clubs/([^/]+)/$ index.php?ciudad=$1&cat=club&listado=cat
+
+RewriteRule ^clubes/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=club&listado=cat
+RewriteRule ^clubs/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=club&listado=cat
+
+RewriteRule ^clubes/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=club&listado=cat
+RewriteRule ^clubs/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=club&listado=cat
+
+
+####################
+
+
+RewriteRule ^ciudades/$ index.php?cat=ciudad&listado=cat
+RewriteRule ^cities/$ index.php?cat=ciudad&listado=cat
+
+RewriteRule ^ciudades/([^/]+)/$ index.php?ciudad=$1&cat=ciudad&listado=cat
+RewriteRule ^cities/([^/]+)/$ index.php?ciudad=$1&cat=ciudad&listado=cat
+
+RewriteRule ^ciudades/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=ciudad&listado=cat
+RewriteRule ^cities/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=ciudad&listado=cat
+
+RewriteRule ^ciudades/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=ciudad&listado=cat
+RewriteRule ^cities/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=ciudad&listado=cat
+
+
+####################
+
+
+RewriteRule ^paises/$ index.php?cat=pais&listado=cat
+RewriteRule ^countries/$ index.php?cat=pais&listado=cat
+
+RewriteRule ^paises/([^/]+)/$ index.php?ciudad=$1&cat=pais&listado=cat
+RewriteRule ^countries/([^/]+)/$ index.php?ciudad=$1&cat=pais&listado=cat
+
+RewriteRule ^paises/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=pais&listado=cat
+RewriteRule ^countries/([^/]+)/([^/]+)$ index.php?ciudad=$1&basename=$2&cat=pais&listado=cat
+
+RewriteRule ^paises/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=pais&listado=cat
+RewriteRule ^countries/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&cat=pais&listado=cat
+
+
+RewriteRule ^paises/([^/]+)/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&club2=$3&cat=pais&listado=cat
+RewriteRule ^countries/([^/]+)/([^/]+)/([^/]+)/$ index.php?ciudad=$1&club=$2&club2=$3&cat=pais&listado=cat
+
+####################
+
+
+RewriteRule ^listadosgenerales/$ listas_especiales_para.php?para=renta-venta-intercambio
+
+####################
+
+
+RewriteRule ^renta-venta-intercambio/([^/]+)/$ listas_especiales_para.php?para=renta-venta-intercambio&ciudad=$1
+
+####################
+
+
+RewriteRule ^renta/$ listas_especiales_para.php?para=renta
+RewriteRule ^rent/$ listas_especiales_para.php?para=renta
+
+RewriteRule ^renta/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=renta
+RewriteRule ^rent/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=renta
+
+RewriteRule ^renta/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=renta
+RewriteRule ^rent/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=renta
+
+RewriteRule ^renta/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=renta
+RewriteRule ^rent/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=renta
+
+####################
+
+
+RewriteRule ^venta/$ listas_especiales_para.php?para=venta
+RewriteRule ^sell/$ listas_especiales_para.php?para=venta
+
+RewriteRule ^venta/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=venta
+RewriteRule ^sell/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=venta
+
+RewriteRule ^venta/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=venta
+RewriteRule ^sell/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=venta
+
+RewriteRule ^venta/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=venta
+RewriteRule ^sell/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=venta
+
+####################
+
+
+RewriteRule ^intercambio/$ listas_especiales_para.php?para=intercambio
+RewriteRule ^exchange/$ listas_especiales_para.php?para=intercambio
+
+RewriteRule ^intercambio/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=intercambio
+RewriteRule ^exchange/([^/]+)/$ listas_especiales_para.php?ciudad=$1&para=intercambio
+
+RewriteRule ^intercambio/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=intercambio
+RewriteRule ^exchange/([^/]+)/([^/]+)/$ listas_especiales_para.php?ciudad=$1&tipo=$2&para=intercambio
+
+RewriteRule ^intercambio/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=intercambio
+RewriteRule ^exchange/([^/]+)/([^/]+)/([^/]+)$ listas_especiales_para.php?ciudad=$1&tipo=$2&basename=$3&para=intercambio
+
+
+
+#######################
+
+
+RewriteRule ^vacaciones-en/$ vacaciones-en.php
+RewriteRule ^vacaciones-en/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ vacaciones-en.php?pais_nombre=$1&ciudad=$2&club=$3&categoria=$4&fecha=$5&dormitorios=$6&cap_privacidad=$7&precio=$8&moneda=$9&pais=$10
+
+RewriteRule ^vacaciones-en-([^/]+)/([^/]+)-en-([^/]+)/([^/]+)-en-([^/]+),([^/]+)-tiempo-compartido-en-([^/]+)/$ vacaciones-en.php?pais_nombre=$6&club=$4&categoria=$3&inmueble=$2&item=$7&ciudad=$5&opcion=$1
+
+RewriteRule ^vacaciones-en-([^/]+)/([^/]+)-en-([^/]+)/([^/]+)-en-([^/]+),([^/]+)-tiempo-compartido-en-([^/]+)/([^/]+)/$ vacaciones-en.php?pais_nombre=$6&club=$4&categoria=$3&inmueble=$2&item=$7&ciudad=$5&opcion=$1&_pagi_pg=$8
+
+RewriteRule ^vacaciones/$ vacaciones-en.php
+RewriteRule ^vacaciones/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ vacaciones-en.php?pais_nombre=$1&ciudad=$2&club=$5&categoria=$4&inmueble=$3&item=$6
+

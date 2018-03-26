@@ -1,0 +1,16 @@
+.card-body {
+    padding: 0.25rem;
+}
+
+.top_parent {
+    font-size: small;
+    color: #333;
+}
+
+.main_section {
+    padding: 50px 0;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

@@ -1,0 +1,1 @@
+a:3:{s:3:"url";s:32:"http://www.tiempocompartido.com/";s:8:"feed_url";s:71:"http://www.tiempocompartido.com/rss/suscripcion-tiempos-compartidos.php";s:5:"build";i:20081219;}
